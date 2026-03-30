@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOY Generator - Luxury Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gem-pink: #ff007f;
+            --gem-blue: #00d4ff;
+            --gem-purple: #bd00ff;
+            --bg-dark: #050507;
+        }
+
+        * { box-sizing: border-box; }
+
+        body { 
+            background: var(--bg-dark);
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://media.giphy.com/media/eJoZAwRN9OI5QjthIE/giphy.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff; 
+            font-family: 'Rajdhani', sans-serif; 
+            display: flex; justify-content: center; align-items: center;
+            margin: 0; min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container { 
+            width: 95%; max-width: 520px; z-index: 2; padding: 20px; 
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header { 
+            text-align: center; font-family: 'Orbitron', sans-serif;
+            font-size: 36px; font-weight: 700; margin-bottom: 40px; 
+            letter-spacing: 6px; text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, var(--gem-pink), var(--gem-purple), var(--gem-blue), #fff);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: animateTextGradient 4s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.7));
+        }
+
+        @keyframes animateTextGradient {
+            0% { background-position: 0%; }
+            100% { background-position: 200%; }
+        }
+
+        .luxury-card {
+            position: relative;
+            background: rgba(10, 10, 15, 0.95);
+            border-radius: 20px; padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .luxury-card::before {
+            content: "";
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--gem-pink), var(--gem-purple), var(--gem-blue), transparent);
+            animation: rotate 6s linear infinite;
+            z-index: -2;
+        }
+
+        .luxury-card::after {
+            content: "";
+            position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: rgba(10, 10, 15, 0.98);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        label { 
+            font-size: 13px; color: var(--gem-blue); text-transform: uppercase; 
+            font-weight: 700; letter-spacing: 2px; margin-bottom: 8px; display: block;
+        }
+        
+        input, textarea { 
+            width: 100%; background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px; color: #fff; padding: 14px;
+            margin-bottom: 20px; font-family: inherit; font-size: 16px;
+            outline: none; transition: all 0.4s ease;
+        }
+
+        input:focus, textarea:focus { 
+            border-color: var(--gem-blue); 
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .btn { 
+            width: 100%; padding: 16px; border: none; font-family: 'Orbitron', sans-serif;
+            font-weight: 700; cursor: pointer; text-transform: uppercase; border-radius: 8px;
+            transition: all 0.4s; letter-spacing: 3px;
+        }
+        
+        .btn-proses { 
+            background: linear-gradient(45deg, var(--gem-pink), var(--gem-purple)); 
+            color: #fff; margin-bottom: 15px; 
+            box-shadow: 0 5px 20px rgba(255, 0, 127, 0.5);
+        }
+        
+        .btn-proses:hover { 
+            box-shadow: 0 8px 30px rgba(255, 0, 127, 0.8); 
+            transform: translateY(-3px);
+        }
+        
+        .btn-salin { 
+            background: transparent; color: var(--gem-blue); 
+            border: 2px solid var(--gem-blue);
+        }
+
+        .btn-salin:hover { 
+            background: var(--gem-blue); color: #000; 
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
+        }
+
+        #out-result { 
+            font-family: 'Fira Code', monospace; font-size: 14px; 
+            color: #00ff9d; background: rgba(0, 20, 0, 0.5); 
+            padding: 20px; border-radius: 8px;
+            white-space: pre-wrap; border: 1px solid rgba(0, 255, 157, 0.2); 
+            line-height: 1.7; margin-bottom: 20px;
+            min-height: 140px;
+        }
+
+        ::placeholder { color: rgba(255, 255, 255, 0.15); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">ABOY SYSTEM</div>
+
+    <div class="luxury-card">
+        <label>Operator Staff Identity</label>
+        <input type="text" id="nama_staff" placeholder="Vkiaacs7 / Cakra Darma">
+        
+        <label>Target User Access ID</label>
+        <input type="text" id="user_id" placeholder="putra07">
+        
+        <label>Raw Transaction Log Data</label>
+        <textarea id="log" placeholder="bank : ... => ..., acc : ... => ..., rek : ... => ..." rows="3"></textarea>
+        
+        <button class="btn btn-proses" onclick="startGeneration()">[ INITIALIZE GENERATE ]</button>
+        
+        <div id="out-result">System Online. Awaiting core data...</div>
+        <button class="btn btn-salin" id="copyBtn" onclick="copyManual()">SALIN DATA LAPORAN</button>
+    </div>
+</div>
+
+<script>
+    function typeWriter(text, elementId, speed) {
+        let i = 0;
+        const element = document.getElementById(elementId);
+        element.innerText = "";
+        
+        function type() {
+            if (i < text.length) {
+                element.innerText += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
+    }
+
+    function startGeneration() {
+        const outElement = document.getElementById('out-result');
+        outElement.innerText = "Processing secure encryption...";
+        setTimeout(generateReport, 800);
+    }
+
+    function generateReport() {
+        const logText = document.getElementById('log').value;
+        const staff = document.getElementById('nama_staff').value || "UNKNOWN_STAFF";
+        const uid = document.getElementById('user_id').value || "UNKNOWN_ID";
+        
+        // Mengambil Tanggal hari ini
+        const now = new Date();
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        const tgl = now.toLocaleDateString('id-ID', options);
+
+        function getVal(key, isAfter) {
+            const regex = new RegExp(`${key}\\s*:\\s*(.*?)\\s*=>\\s*([^\\n,]+)`, 'i');
+            const match = logText.match(regex);
+            if (match) {
+                return isAfter ? match[2].trim() : match[1].trim();
+            }
+            return "-";
+        }
+
+        // FORMAT LAPORAN DENGAN TANGGAL DI BAWAH STAFF
+        const finalReport = `STAFF: ${staff}\nTanggal: ${tgl}\nID: ${uid}\nKET: Pergantian data rekening\nData rekening sebelumnya: ${getVal("bank", false)} / ${getVal("acc", false)} / ${getVal("rek", false)}\nData rekening sesudahnya: ${getVal("bank", true)} / ${getVal("acc", true)} / ${getVal("rek", true)}`;                
+        
+        typeWriter(finalReport, 'out-result', 10);
+    }
+
+    function copyManual() {
+        const text = document.getElementById('out-result').innerText;
+        const btn = document.getElementById('copyBtn');
+        if (text.includes("System Online")) return;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED TO CLIPBOARD! ✓";
+            btn.style.background = "#fff";
+            btn.style.color = "#000";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "transparent";
+                btn.style.color = "var(--gem-blue)";
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
