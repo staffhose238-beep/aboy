@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOY SYSTEM: Bantu Cek CRM Pink Edition</title>
+    <style>
+        :root {
+            --bg-body: #1a0b16; /* Dark purple/pink base */
+            --card-bg: rgba(45, 15, 38, 0.7); /* Transparan glassmorphism */
+            --accent-pink: #ff007f; /* Neon Pink */
+            --accent-violet: #bd00ff; /* Neon Violet */
+            --text-light: #ffe6f2;
+            --btn-border: #ff007f;
+            --red-matte: #e91e63;
+            --green-success: #00f5d4; /* Teal neon untuk kontras */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a0b16 0%, #0d0208 100%);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 0;
+        }
+
+        .main-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 95%;
+            max-width: 900px;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 127, 0.3);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.2);
+        }
+
+        .title {
+            text-align: center;
+            letter-spacing: 4px;
+            font-weight: 900;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--accent-pink);
+        }
+
+        .title span { color: var(--accent-violet); }
+
+        #input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(189, 0, 255, 0.2);
+            position: relative;
+        }
+
+        .column { flex: 1; }
+
+        .column-label {
+            font-size: 0.7rem;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 127, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            color: #ff99cc; /* Pinkish text */
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            box-sizing: border-box;
+            resize: none;
+            outline: none;
+        }
+
+        textarea:focus { border-color: var(--accent-pink); box-shadow: 0 0 8px rgba(255, 0, 127, 0.4); }
+
+        .remove-row-btn {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            background: var(--red-matte);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+        }
+
+        .add-row-btn {
+            background: transparent;
+            color: var(--green-success);
+            border: 1px solid var(--green-success);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .add-row-btn:hover { background: var(--green-success); color: #000; box-shadow: 0 0 15px var(--green-success); }
+
+        .btn-audit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-violet));
+            border: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            letter-spacing: 2px;
+        }
+
+        .btn-audit:hover { transform: scale(1.01); box-shadow: 0 0 20px rgba(255, 0, 127, 0.6); }
+
+        .btn-reset-main {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #555;
+            color: #aaa;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        #resultArea {
+            margin-top: 25px;
+            display: none;
+            border-top: 1px solid rgba(255, 0, 127, 0.3);
+            padding-top: 20px;
+        }
+
+        #output {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            color: #ff99cc;
+            border-left: 5px solid var(--accent-violet);
+            font-family: 'Consolas', monospace;
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-violet);
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <div class="title">ABOY <span>DATA CRM</span></div>
+    
+    <div id="input-wrapper">
+        <div class="flex-container">
+            <div class="column">
+                <div class="column-label">Data User id => Bank</div>
+                <textarea class="input1" placeholder="Tempel data log..."></textarea>
+            </div>
+            <div class="column">
+                <div class="column-label">History Bank</div>
+                <textarea class="input2" placeholder="Tempel history..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <button class="add-row-btn" onclick="addNewRow()">+ TAMBAH KOLOM</button>
+    <button class="btn-audit" onclick="prosesAudit()">PROSES DATA</button>
+    <button class="btn-reset-main" onclick="resetForm()">RESET FORM</button>
+
+    <div class="result-section" id="resultArea">
+        <div id="output"></div>
+        <button id="copyBtn" class="copy-btn" onclick="copyResult()">SALIN HASIL</button>
+    </div>
+</div>
+
+<script>
+    function addNewRow() {
+        const wrapper = document.getElementById('input-wrapper');
+        const newRow = document.createElement('div');
+        newRow.className = 'flex-container';
+        newRow.innerHTML = `
+            <button class="remove-row-btn" onclick="this.parentElement.remove()">×</button>
+            <div class="column">
+                <textarea class="input1" placeholder="Tempel data..."></textarea>
+            </div>
+            <div class="column">
+                <textarea class="input2" placeholder="Tempel history..."></textarea>
+            </div>
+        `;
+        wrapper.appendChild(newRow);
+    }
+
+    function getTodayDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        return `${dd}-${mm}-${today.getFullYear()}`;
+    }
+
+    function prosesAudit() {
+        const rows = document.querySelectorAll('.flex-container');
+        let finalOutput = "";
+        const todayStr = getTodayDate();
+
+        rows.forEach((row) => {
+            const data1 = row.querySelector('.input1').value.trim();
+            const data2 = row.querySelector('.input2').value.trim();
+            
+            if (data1 && data2) {
+                const lines1 = data1.split('\n');
+                const idUser = lines1[0].trim();
+                const lastLine1 = lines1[lines1.length - 1].trim();
+                
+                let jenisRek = "-";
+                const bankMatch = lastLine1.match(/([^,\s\t]+),/);
+                if (bankMatch) {
+                    jenisRek = bankMatch[1];
+                } else {
+                    const parts = lastLine1.split(/[\s\t]+/);
+                    jenisRek = parts[parts.length - 1];
+                }
+
+                const historyLines = data2.split('\n');
+                let validDates = [];
+                let nominalHariIni = [];
+
+                historyLines.forEach(line => {
+                    const lowLine = line.toLowerCase();
+                    const dateMatch = line.match(/\d{2}-\d{2}-\d{4}/);
+
+                    if (lowLine.includes("deposit") && !lowLine.includes("reject") && dateMatch) {
+                        const tglBaris = dateMatch[0];
+                        validDates.push(tglBaris);
+                        if (tglBaris === todayStr) {
+                            const matches = line.match(/\d{1,3}(,\d{3})*(\.\d+)?|\d{4,}/g);
+                            if (matches) {
+                                const possibleNominal = matches.filter(num => num.replace(/[,.]/g, '').length >= 4);
+                                if (possibleNominal.length > 0) nominalHariIni.push(possibleNominal[0]);
+                            }
+                        }
+                    }
+                });
+
+                const uniqueDates = [...new Set(validDates)];
+                const tglTerakhir = uniqueDates[0] || "-";
+                const tglSebelumnya = uniqueDates[1] || "-";
+
+                finalOutput += `ID ${idUser}\nLast Deposit/Main : ${tglTerakhir}\n`;
+                if (nominalHariIni.length > 0) finalOutput += `Rp. ${nominalHariIni.join(" + ")}\n`;
+                finalOutput += `Tanggal Deposit/Main sebelumnya : ${tglSebelumnya}\nJenis Rek : ${jenisRek}\n\n`;
+            }
+        });
+
+        if (finalOutput) {
+            document.getElementById('output').innerText = finalOutput.trim();
+            document.getElementById('resultArea').style.display = 'block';
+        }
+    }
+
+    function copyResult() {
+        const text = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            document.getElementById('copyBtn').innerText = "COPIED!";
+            setTimeout(() => { document.getElementById('copyBtn').innerText = "SALIN HASIL"; }, 2000);
+        });
+    }
+
+    function resetForm() {
+        document.getElementById('input-wrapper').innerHTML = `
+            <div class="flex-container">
+                <div class="column">
+                    <div class="column-label">Data User id => Bank</div>
+                    <textarea class="input1" placeholder="Tempel data..."></textarea>
+                </div>
+                <div class="column">
+                    <div class="column-label">History Bank</div>
+                    <textarea class="input2" placeholder="Tempel history..."></textarea>
+                </div>
+            </div>`;
+        document.getElementById('resultArea').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
